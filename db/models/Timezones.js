@@ -1,13 +1,13 @@
 const sequelize = require("../config");
 const DataTypes = require("sequelize");
 
-const Types = sequelize.define("types", {
-    name: {
+const Timezones = sequelize.define("timezones", {
+    tz: {
         type: DataTypes.STRING(255),
         allowNull: false
     },
 }, {
-    indexes: [{ unique: true, fields: ["name"] }]
+    indexes: [{ unique: true, fields: ["tz"] }]
 });
 
-module.exports = Types;
+module.exports = Timezones;
