@@ -20,6 +20,10 @@ const Users = sequelize.define("users", {
     password: {
         type: DataTypes.STRING(255),
         allowNull: false
+    },
+    active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
     }
 }, {
     indexes: [{ unique: true, fields: ["pseudo"] }],

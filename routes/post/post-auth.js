@@ -17,7 +17,6 @@ module.exports = app => {
 
         const pseudoRegex = /^[a-zA-Z0-9]+$/;
         const nameRegex = /^[a-zA-Z,\-\ ]+$/;
-        const amountRegex = /^[0-9.]+$/;
 
         if(! pseudo || ! password || ! confirmPwd || ! firstname || ! lastname || ! accountName || ! accountAmount) {
             return res.status(400).json({ data: "Tous les champs sont obligatoires." });
@@ -35,7 +34,7 @@ module.exports = app => {
             return res.status(400).json({ data: "Prénom ou Nom ou Nom de compte de la mauvaise forme." });
         }
 
-        if(! accountAmount.match(amountRegex)) {
+        if(! Number.isFinite(accountAmount)) {
             return res.status(400).json({ data: "Le solde du compte doit être un nombre." });
         }
 

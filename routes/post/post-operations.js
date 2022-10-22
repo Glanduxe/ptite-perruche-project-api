@@ -2,7 +2,7 @@ const Accounts = require("../../db/models/Accounts");
 
 module.exports = app => {
 
-    app.post("/create-operations", (req, res) => {
+    app.post("/create-operation", (req, res) => {
 
         const accountID = req.body.accountID;
         const description = req.body.description;

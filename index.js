@@ -24,7 +24,9 @@ function start() {
     require("./db/init");
     require("./routes/post/post-auth")(app);
     require("./routes/post/post-operations")(app);
+    require("./routes/post/post-accounts")(app);
     require("./routes/put/put-accounts")(app);
+    require("./routes/get/get-timezone")(app);
 
     // Main crons
     require("./crons/crons");
