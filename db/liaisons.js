@@ -10,4 +10,4 @@ Users.belongsTo(Timezones, { onDelete: "cascade" });
 
 Accounts.hasMany(Operations, { onDelete: "cascade" });
 
-Operations.hasOne(Types, { onDelete: "cascade" });
+Operations.belongsTo(Types, { onDelete: "cascade" });

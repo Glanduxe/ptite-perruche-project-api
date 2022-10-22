@@ -1,7 +1,7 @@
 {
-  "name": "dev",
-  "version": "1.0.0",
-  "description": "",
+  "name": "ptite-perruche-project-api",
+  "version": "0.0.1",
+  "description": "\"Ptite perruche\" is a free and open-source web application that provides a full bank account(s) management.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "devDependencies": {
     "nodemon": "^2.0.20"
   },
