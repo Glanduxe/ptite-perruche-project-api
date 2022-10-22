@@ -1,4 +1,5 @@
 const User = require("../../db/models/Users");
+const Timezones = require("../../db/models/Timezones");
 const jwt = require("../../utils/token");
 
 module.exports = app => {
@@ -12,6 +13,7 @@ module.exports = app => {
         const accountAmount = req.body.accountAmount;
         const password = req.body.password;
         const confirmPwd = req.body.confirmPwd;
+        const timezone = req.body.timezone;
 
         const pseudoRegex = /^[a-zA-Z0-9]+$/;
         const nameRegex = /^[a-zA-Z,\-\ ]+$/;
@@ -52,9 +54,17 @@ module.exports = app => {
                 return res.status(400).json({ data: `L'utilisateur avec le pseudo "${user.pseudo}" existe déjà.` });
             }
             user.createAccount({ name: accountName, amount: accountAmount })
-            .then(user => {
-                console.log(user);
-                return res.status(200).json({ data: `Utilisateur "${pseudo}" créé.` });
+            .then(() => {
+                Timezones.findOrCreate({
+                    where: {
+                        tz: timezone
+                    }
+                })
+                .then(([timezone]) => {
+                    user.setTimezone(timezone.id).then(() => { 
+                        return res.status(200).json({ data: `Utilisateur "${pseudo}" créé.` });
+                    });
+                })
             })
         })
 
