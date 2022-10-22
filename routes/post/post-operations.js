@@ -2,7 +2,7 @@ const Accounts = require("../../db/models/Accounts");
 
 module.exports = app => {
 
-    app.post("/create-operation", (req, res) => {
+    app.post("/create-operations", (req, res) => {
 
         const accountID = req.body.accountID;
         const description = req.body.description;
@@ -24,8 +24,7 @@ module.exports = app => {
             where: {
                 id: accountID
             }
-        })
-        .then(account => {
+        }).then(account => {
             if (account) {
                 return account.createOperation({
                     description: description,
@@ -34,13 +33,12 @@ module.exports = app => {
                     isInfinite: isInfinite,
                     startDate: startDate,
                     typeId: typeId
-                })
-                .then(() => {
+                }).then(() => {
                     return res.status(200).json({ data: "Opération créée et prise en compte." });
                 })
             }
             return res.status(403).json({ data: "Access denied" });
-        })
+        });
 
     });
 

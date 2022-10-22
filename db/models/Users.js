@@ -33,6 +33,11 @@ const Users = sequelize.define("users", {
                 user.password = bcrypt.hashSync(user.password, salt);
             }
         },
+        beforeUpdate: user => {
+            if (user.changed('password')) {
+                user.password = bcrypt.hashSync(user.password, salt);
+            }
+        },
         afterCreate: user => {
             Accounts.create({name: "Default", amount: 0, userId: user.id});
         }

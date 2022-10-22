@@ -2,7 +2,7 @@ const Users = require("../../db/models/Users");
 
 module.exports = app => {
 
-    app.post("/create-account", (req, res) => {
+    app.post("/create-accounts", (req, res) => {
 
         const userId = req.app.get("token");
         const name = req.body.name;
@@ -18,20 +18,18 @@ module.exports = app => {
             return res.status(400).json({ data: "Le solde du compte doit être un nombre." });
         }
 
-        Users.findOne({
+        return Users.findOne({
             where: {
                 id: userId
             }
-        })
-        .then(user => {
+        }).then(user => {
             user.createAccount({
                 name: name,
                 amount: amount
-            })
-            .then(() => {
+            }).then(() => {
                 return res.status(200).json({ data: "Compte créé." });
             })
-        })
+        });
 
     });
 

@@ -2,7 +2,7 @@ const Accounts = require("../../db/models/Accounts");
 
 module.exports = app => {
 
-    app.put("/modify-account", (req, res) => {
+    app.put("/modify-accounts", (req, res) => {
 
         const accountID = req.body.accountID;
         const accountName = req.body.accountName;
@@ -29,10 +29,6 @@ module.exports = app => {
                 return account.update({
                     name: accountName,
                     amount: accountAmount
-                }, {
-                    where: {
-                        id: account.id
-                    }
                 }).then(() => {
                     return res.status(200).json({ data: "Le compte a été modifié." });
                 })

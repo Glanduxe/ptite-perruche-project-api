@@ -47,8 +47,7 @@ module.exports = app => {
                 lastName: lastname,
                 password: password
             }
-        })
-        .then(([user, created]) => {
+        }).then(([user, created]) => {
             if (! created) {
                 return res.status(400).json({ data: `L'utilisateur avec le pseudo "${user.pseudo}" existe déjà.` });
             }
@@ -58,8 +57,7 @@ module.exports = app => {
                     where: {
                         tz: timezone
                     }
-                })
-                .then(([timezone]) => {
+                }).then(([timezone]) => {
                     user.setTimezone(timezone.id).then(() => { 
                         return res.status(200).json({ data: `Utilisateur "${pseudo}" créé.` });
                     });
@@ -84,12 +82,10 @@ module.exports = app => {
         }
 
         return User.findOne({
-            attributes: ["id", "pseudo", "password"],
             where: {
                 pseudo: pseudo
             }
-        })
-        .then(user => {
+        }).then(user => {
             if(user && user.validPassword(password)) {
                 const token = jwt.generateTokenForUser(user.id);
                 res.cookie("auth_token", token, {
@@ -98,7 +94,7 @@ module.exports = app => {
                 return res.status(200).json({ data: user });
             }
             return res.status(400).json({ data: "Mot de passe incorrect." });
-        })
+        });
 
     });
 
