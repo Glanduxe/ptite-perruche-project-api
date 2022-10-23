@@ -12,15 +12,16 @@ const Operations = sequelize.define("operations", {
     },
     repeatNumber: {
         type: DataTypes.INTEGER,
-        allowNull: true
-    },
-    isInfinite: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: true
+        defaultValue: 0,
+        allowNull: false
     },
     startDate: {
         type: DataTypes.DATEONLY,
+        allowNull: true
+    },
+    count: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
         allowNull: false
     }
 });

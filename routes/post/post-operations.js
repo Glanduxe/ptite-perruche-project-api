@@ -8,7 +8,6 @@ module.exports = app => {
         const description = req.body.description;
         const amount = req.body.amount;
         const repeatNumber = req.body.repeatNumber;
-        const isInfinite = req.body.isInfinite;
         const startDate = req.body.startDate;
         const typeId = req.body.typeId;
 
@@ -30,7 +29,6 @@ module.exports = app => {
                     description: description,
                     amount: amount,
                     repeatNumber: repeatNumber,
-                    isInfinite: isInfinite,
                     startDate: startDate,
                     typeId: typeId
                 }).then(() => {
