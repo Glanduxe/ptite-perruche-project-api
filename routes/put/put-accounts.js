@@ -21,19 +21,19 @@ module.exports = app => {
         
         return Accounts.findOne({
             where: { 
-                id: accountID,
-                userId: req.app.get("token")
+                id: accountID
             }
         }).then(account => {
             if (account) {
-                return account.update({
+                account.update({
                     name: accountName,
                     amount: accountAmount
                 }).then(() => {
                     return res.status(200).json({ data: "Le compte a été modifié." });
                 })
+            } else {
+                return res.status(403).json({ data: "Access denied" });
             }
-            return res.status(403).json({ data: "Access denied" });
         });
 
     });

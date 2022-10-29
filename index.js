@@ -23,7 +23,7 @@ function start() {
     require("./db/config");
     require("./db/init");
     require("./routes/post/post-users")(app);
-    require("./routes/post/post-operations")(app);
+    require("./routes/post/post-events")(app);
     require("./routes/post/post-accounts")(app);
     require("./routes/put/put-accounts")(app);
     require("./routes/put/put-users")(app);

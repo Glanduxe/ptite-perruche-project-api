@@ -1,6 +1,5 @@
 const sequelize = require("./config");
 const Users = require("./models/Users");
-const Types = require("./models/Types");
 const Timezones = require("./models/Timezones");
 
 sequelize.sync({alter: true})
@@ -24,18 +23,8 @@ sequelize.sync({alter: true})
             })
             .then(([timezone]) => {
                 user.setTimezone(timezone.id)
-                .then(() => {
-                    return Types.bulkCreate([
-                        { name: "Yearly" },
-                        { name: "Monthly" },
-                        { name: "Weekly" },
-                        { name: "Daily" },
-                        { name: "Quarterly" },
-                        { name: "hourly" }
-                    ], { updateOnDuplicate: ["name"] })
-                    .then(() => { 
-                        console.log(">> Update of tables and init values created.");
-                    })
+                .then(() => { 
+                    console.log(">> Update of tables and init values created.");
                 })
             });
         } else {

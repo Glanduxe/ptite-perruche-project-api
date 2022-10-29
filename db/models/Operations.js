@@ -2,26 +2,16 @@ const sequelize = require("../config");
 const DataTypes = require("sequelize");
 
 const Operations = sequelize.define("operations", {
+    name: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+    },
     description: {
         type: DataTypes.TEXT,
         allowNull: true
     },
-    amount: {
+    mouvement: {
         type: DataTypes.FLOAT,
-        allowNull: false
-    },
-    repeatNumber: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-        allowNull: false
-    },
-    startDate: {
-        type: DataTypes.DATEONLY,
-        allowNull: true
-    },
-    count: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
         allowNull: false
     }
 });

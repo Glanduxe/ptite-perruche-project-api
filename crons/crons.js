@@ -1,41 +1,30 @@
 const Sequelize = require("sequelize");
 const cron = require('node-cron');
 
-const Operations = require("../db/models/Operations");
+const Events = require("../db/models/Events");
 
 // Cron each minute (for development)
 cron.schedule("* * * * *", () => {
 
-    Operations.findAll({
+    Events.findAll({
         where: {
-            [Sequelize.Op.and]: {
-                repeatNumber: {
-                    [Sequelize.Op.or]: {
-                        [Sequelize.Op.gt]: Sequelize.col("operations.count"),
-                        [Sequelize.Op.eq]: -1
-                    }
-                },
-                startDate: {
-                    [Sequelize.Op.not]: null
-                }
-            }
-        }, logging: console.log}).then(op => {
-            op.forEach(element => {
-                element.getAccount().then(account => {
-                    account.getUser().then(user => {
-                        user.getTimezone().then(({tz}) => {
-                            const userTimezone = tz;
-                            const currentUtcDate = new Date().toISOString();
-                            const currentUserDate = currentUtcDate.split("T")[0];
-                            // if (currentUserDate === element.startDate) {
-                            //     console.log(true);
-                            // } else {
-                            //     console.log(false);
-                            // }
+            active: true
+        }
+    })
+    .then(events => {
+        events.forEach(event => {
+            event.getAccount().then(account => {
+                account.getUser().then(user => {
+                    user.getTimezone().then(tz => {
+                        const userTZ = tz.tz;
+                        const userDate = new Date().toLocaleDateString("en-CA", { timeZone: userTZ });
+                        event.countOperations().then(count => {
+                            console.log(count);
                         })
                     })
-                });
-            });
-        });
+                })
+            })
+        })
+    });
 
 });

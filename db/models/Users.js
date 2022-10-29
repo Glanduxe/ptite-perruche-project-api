@@ -39,7 +39,7 @@ const Users = sequelize.define("users", {
             }
         },
         afterCreate: user => {
-            Accounts.create({name: "Default", amount: 0, userId: user.id});
+            user.createAccount({name: "Default", amount: 0});
         }
     }
 });
